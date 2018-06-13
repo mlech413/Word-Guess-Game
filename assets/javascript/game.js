@@ -3,6 +3,8 @@ var computerPickMade = 'n';
 var validLetter = "n";
 var wins = 0;
 var losses = 0;
+var correctGuesses = 0;
+var guessesRemaining = 12;
 var computerWord = "not selected";
 var alphabet = [
     "a" ,"b" ,"c" ,"d" ,"e" ,"f" ,"g" ,"h" ,"i" ,"j" ,"k" ,"l" ,"m" ,"n" ,"o" ,"p" ,"q" ,"r" ,"s" ,"t" ,"u" ,"v" ,"w" ,"x", "y", "z" 
@@ -37,28 +39,38 @@ for (var i = 0; i < alphabet.length; i++) {
 }
 console.log("validLetter: " + validLetter)
 
-// Only process if valid letter chosen.
+// Only proceed if a valid letter is chosen.
 if (validLetter == "y") {
 
-    if (userGuess === "r")
-    {
-        console.log("You win!");
-        wins++;
+    // Match the userGuess letter to each letter of the computerWord.
+    var correctLocation = 0;
+    for (var i = 0; i < computerWord.length; i++) {
+        console.log(computerWord.charAt(i));
+        // If the userGuess matches one of the letters in the computer's word, store the location of that letter within the word.
+        if (userGuess == computerWord.charAt(i)) {
+            correctLocation = i+1;
+        }
+      }
+      console.log("correctLocation: " + correctLocation);
+    
+    if (correctLocation <= 0) {
+        pickResult = "Incorrect!";
+        guessesRemaining--;
+        console.log("guessesRemaining: " + guessesRemaining);
     }
 
-    else if (userGuess === "p")
-    {
-        console.log("You win!");
-        wins++;
-    }
 
 
-    console.log(wins);
-    console.log(losses);
+
+
+    
+    console.log("Wins: " + wins);
+    console.log("Losses: " + losses);
 
     // Creating a variable to hold our new HTML. Our HTML now keeps track of the user and computer guesses, and wins/losses/ties.
     var html =
         "<p>You choose: " + userGuess + "</p>" +
+        "<p>Guesses reamining: " + guessesRemaining + "</p>" +
         "<p>wins: " + wins + "</p>" +
         "<p>losses: " + losses + "</p>"
 
