@@ -8,6 +8,7 @@ var currentPickCorrect = false;
 var guessesRemaining = 12;
 var computerWord = "";
 var finalMessage = "";
+var finalImage = "";
 var gameOver = false;
 var p = 0;
 var alreadyPicked = false;
@@ -79,7 +80,7 @@ var computerChoice = [
 computerWord = computerChoice[Math.floor(Math.random() * computerChoice.length)];
 console.log("start: " + computerWord);
 
-computerWord = computerWord.toUpperCase();
+
 
 
 // Create a new empty array, with num of items in array matching num of letters in computer selected word.
@@ -90,7 +91,7 @@ console.log(wordToGuess);
 for (var i = 0; i < wordToGuess.length; i++) {
     wordToGuess[i] = "_"
 }
-console.log(wordToGuess);
+// console.log(wordToGuess);
 
 // Create display html text for display of blank word at start.
 var blankLinesHtml = "<h2>"
@@ -103,9 +104,6 @@ var topHtml =
 var openingHtml = blankLinesHtml + "</h2>";   
 // Set the inner HTML contents of the #game div to our html string
 document.querySelector("#game").innerHTML = topHtml + openingHtml;
-
-
-
 
 // This function is run whenever the user presses a key.
 document.onkeyup = function(event) {
@@ -121,7 +119,8 @@ document.onkeyup = function(event) {
     //     computerWord = computerChoices[Math.floor(Math.random() * computerChoices.length)];
     //     computerPickMade = "y";
     // }
-    console.log(computerWord);
+    computerWord = computerWord.toUpperCase();
+    console.log("computerWord: " + computerWord);
     var userGuess = userGuess.toUpperCase();
     console.log("userGuess: " + userGuess);
 
@@ -132,18 +131,17 @@ document.onkeyup = function(event) {
             validLetter = true;
         }
     }
-    console.log("validLetter: " + validLetter)
+    // console.log("validLetter: " + validLetter)
 
     // Only proceed if a valid letter is chosen.
     if (validLetter) {
 
         // Match the userGuess letter to each letter of computerWord.
-        for (var i = 0; i < computerWord.length; i++) {
-            // console.log(computerWord.charAt(i));
-            // If correct guess, the userGuess matches one of the letters in the computer's word, so store the location
-            // of that letter within the word.
+        for (var i = 0; i < computerWord.length; i++) {         
             console.log("userGuess: " + userGuess);
             console.log("computerWord.charAt(i): " + computerWord.charAt(i));
+            // If correct guess, the userGuess matches one of the letters in the computer's word, so store the location
+            // of that letter within the word.
             if (userGuess == computerWord.charAt(i)) {
                 console.log("if (userGuess == computerWord.charAt(i)): " + userGuess + ", " + computerWord.charAt(i));
                 if (wordToGuess[i] != "_") {
@@ -152,8 +150,8 @@ document.onkeyup = function(event) {
                 }
                 currentPickCorrect = true;
                 wordToGuess[i] = userGuess;
-                console.log("Set wordToGuess[i] = userGuess:" + wordToGuess[i]);
-                console.log("wordToGuess: " + wordToGuess);
+                // console.log("Set wordToGuess[i] = userGuess:" + wordToGuess[i]);
+                // console.log("wordToGuess: " + wordToGuess);
             }
         }
         
@@ -161,57 +159,60 @@ document.onkeyup = function(event) {
 
             for (var z = 0; z < pickedLetters.length; z++) {
                 var compareLetter = pickedLetters[z].charAt(1);
-                console.log("DUPLICATE CHECKER LOOP");
-                console.log("alreadyPicked: " + alreadyPicked);
-                console.log("pickedLetters[z]: " + pickedLetters[z]);
-                console.log("compareLetter: " + compareLetter);
-                console.log("userGuess: " + userGuess);
+                // console.log("DUPLICATE CHECKER LOOP");
+                // console.log("alreadyPicked: " + alreadyPicked);
+                // console.log("pickedLetters[z]: " + pickedLetters[z]);
+                // console.log("compareLetter: " + compareLetter);
+                // console.log("userGuess: " + userGuess);
                 if (compareLetter == userGuess) {
                     alreadyPicked = true;
-                    console.log("compareLetter == userGuess");
-                    console.log("alreadyPicked: " + alreadyPicked);
+                    // console.log("compareLetter == userGuess");
+                    // console.log("alreadyPicked: " + alreadyPicked);
                 }
             }
         }   
 
+        console.log("currentPickCorrect: " + currentPickCorrect);
         if (alreadyPicked) {
             pickResult = "You already guessed that letter!"
-            console.log("wordToGuess: " + wordToGuess);
+            // console.log("wordToGuess: " + wordToGuess);
         }
         else if (currentPickCorrect) {
             pickResult = "Correct!";
             for (var d = 0; d < computerWord.length; d++) {
                 if (userGuess == computerWord.charAt(d)) 
                 correctGuesses++;
-                console.log("correctGuesses: " + correctGuesses);
+                // console.log("correctGuesses: " + correctGuesses);
             }
         }
         else {
             pickResult = "Incorrect!";
             guessesRemaining--;
             
-            console.log("p: " + p);
-            console.log("pickedLetters[p]: " + pickedLetters[p]);
+            // console.log("p: " + p);
+            // console.log("pickedLetters[p]: " + pickedLetters[p]);
             pickedLetters[p]  = " " + userGuess;
-            console.log("pickedLetters[p]: " + pickedLetters[p]);
-            console.log("pickedLetters: " + pickedLetters);
+            // console.log("pickedLetters[p]: " + pickedLetters[p]);
+            // console.log("pickedLetters: " + pickedLetters);
             p++;
-            console.log("wordToGuess[i]: " + wordToGuess[i]);
-            console.log("userGuess: " + userGuess);
+            // console.log("wordToGuess[i]: " + wordToGuess[i]);
+            // console.log("userGuess: " + userGuess);
         }
 
         if (correctGuesses >= computerWord.length) {
             finalMessage = computerWord + ": You win!!!!!";
+            finalImage = "<img src='assets/images/" + computerWord + ".jpg'>";
             wins++;
             gameOver = true;
             // Reset initial display array for the word to be all empty '_' spaces.
             for (var i = 0; i < wordToGuess.length; i++) {
                 wordToGuess[i] = "_"
             }
-            console.log(wordToGuess);
+            // console.log(wordToGuess);
         }
         else if (guessesRemaining <= 0) {
             finalMessage = computerWord + ": You Lose!";
+            finalImage = "<img src='assets/images/" + computerWord + ".jpg'>";
             losses++;
             gameOver = true;
             // Reset initial display array for the word to be all empty '_' spaces.
@@ -220,13 +221,13 @@ document.onkeyup = function(event) {
             }
             console.log(wordToGuess);
         }
-        console.log("finalMessage: " + finalMessage);
-        console.log("correctGuesses: " + correctGuesses);
-        console.log("guessesRemaining: " + guessesRemaining);
-        console.log("pickResult: " + pickResult);
-        console.log("gameOver: " + gameOver)
-        console.log("Wins: " + wins);
-        console.log("Losses: " + losses);
+        // console.log("finalMessage: " + finalMessage);
+        // console.log("correctGuesses: " + correctGuesses);
+        // console.log("guessesRemaining: " + guessesRemaining);
+        // console.log("pickResult: " + pickResult);
+        // console.log("gameOver: " + gameOver)
+        // console.log("Wins: " + wins);
+        // console.log("Losses: " + losses);
 
         
         var linesHtml = "<h2>"
@@ -234,9 +235,7 @@ document.onkeyup = function(event) {
             linesHtml = linesHtml + wordToGuess[w] + " ";
         }
             linesHtml + "</h2>";
-        var topHtml =
-            "<h2>Word Guess Game</h2>" +
-            "<h2>Press any letter to get started!</h2>";
+
         var mainHtml =
             "<h1>" + pickResult + "</h1>" +
             "<h2>You chose: " + pickedLetters + "</h2>" +
@@ -245,8 +244,10 @@ document.onkeyup = function(event) {
             "<h2>losses: " + losses + "</h2>"   
         var endMessage =
             "<h1>" + finalMessage + "</h1>"
+        var endImage =
+            "<h1>" + finalImage + "</h1>"
         // Set the inner HTML contents of the #game div to our html string
-        document.querySelector("#game").innerHTML = topHtml + linesHtml + mainHtml + endMessage;
+        document.querySelector("#game").innerHTML = topHtml + linesHtml + mainHtml + endMessage + endImage;
 
         }
 
@@ -275,7 +276,7 @@ document.onkeyup = function(event) {
             for (var i = 0; i < wordToGuess.length; i++) {
                 wordToGuess[i] = "_"
             }
-            console.log(wordToGuess);
+            console.log("At end, wordToGuess: " + wordToGuess);
             // Create display html text for display of blank word at start.
             var blankLinesHtml = "<h2>"
             for (var w = 0; w < wordToGuess.length; w++) {
@@ -287,9 +288,7 @@ document.onkeyup = function(event) {
                 linesHtml = linesHtml + wordToGuess[w] + " ";
             }
                 linesHtml + "</h2>";
-            var topHtml =
-                "<h2>Word Guess Game</h2>" +
-                "<h2>Press any letter to get started!</h2>";
+
             var mainHtml =
                 "<h1>" + pickResult + "</h1>" +
                 "<h2>You chose: " + pickedLetters + "</h2>" +
@@ -298,8 +297,10 @@ document.onkeyup = function(event) {
                 "<h2>losses: " + losses + "</h2>"   
             var endMessage =
                 "<h1>" + finalMessage + "</h1>"
+            var endImage =
+                "<h1>" + finalImage + "</h1>"
             // Set the inner HTML contents of the #game div to our html string
-            document.querySelector("#game").innerHTML = topHtml + linesHtml + mainHtml + endMessage;
+            document.querySelector("#game").innerHTML = topHtml + linesHtml + mainHtml + endMessage + endImage;
     
             
         }   
