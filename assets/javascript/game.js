@@ -17,7 +17,6 @@ var alphabet = [
 var computerChoice = [
       "apple"
     , "pear"
-    , "strawberry"
     ];
 
 // Randomly chooses a choice from the word array computerChoices.
@@ -84,6 +83,8 @@ document.onkeyup = function(event) {
             // console.log(computerWord.charAt(i));
             // If correct guess, the userGuess matches one of the letters in the computer's word, so store the location
             // of that letter within the word.
+            console.log("userGuess: " + userGuess);
+            console.log("computerWord.charAt(i): " + computerWord.charAt(i));
             if (userGuess == computerWord.charAt(i)) {
                 console.log("if (userGuess == computerWord.charAt(i)): " + userGuess + ", " + computerWord.charAt(i));
                 if (wordToGuess[i] != "_") {
@@ -104,7 +105,11 @@ document.onkeyup = function(event) {
         }
         else if (currentPickCorrect) {
             pickResult = "Correct!";
-            correctGuesses++;
+            for (var d = 0; d < computerWord.length; d++) {
+                if (userGuess == computerWord.charAt(d)) 
+                correctGuesses++;
+                console.log("correctGuesses: " + correctGuesses);
+            }
         }
         else {
             pickResult = "Incorrect!";
@@ -121,14 +126,24 @@ document.onkeyup = function(event) {
         }
 
         if (correctGuesses >= computerWord.length) {
-            finalMessage = "You win!!!!!";
+            finalMessage = computerWord + ": You win!!!!!";
             wins++;
             gameOver = true;
+            // Reset initial display array for the word to be all empty '_' spaces.
+            for (var i = 0; i < wordToGuess.length; i++) {
+                wordToGuess[i] = "_"
+            }
+            console.log(wordToGuess);
         }
         else if (guessesRemaining <= 0) {
             finalMessage = "You Lose!";
             losses++;
             gameOver = true;
+            // Reset initial display array for the word to be all empty '_' spaces.
+            for (var i = 0; i < wordToGuess.length; i++) {
+                wordToGuess[i] = "_"
+            }
+            console.log(wordToGuess);
         }
         console.log("finalMessage: " + finalMessage);
         console.log("correctGuesses: " + correctGuesses);
@@ -149,7 +164,7 @@ document.onkeyup = function(event) {
             "<h2>Press any letter to get started!</h2>";
         var mainHtml =
             "<h2>You chose: " + pickedLetters + "</h2>" +
-            "<h2>Guesses reamining: " + guessesRemaining + "</h2>" +
+            "<h2>Guesses remaining: " + guessesRemaining + "</h2>" +
             "<h2>wins: " + wins + "</h2>" +
             "<h2>losses: " + losses + "</h2>"   
         var endMessage =
@@ -158,4 +173,38 @@ document.onkeyup = function(event) {
         document.querySelector("#game").innerHTML = topHtml + linesHtml + mainHtml + endMessage;
 
         }
+
+        if (gameOver) {
+            computerPickMade = 'n';
+            validLetter = false;
+            correctGuesses = 0;
+            currentPickCorrect = false;
+            guessesRemaining = 12;
+            computerWord = "";
+            gameOver = false;
+            p = 0;
+            pickedLetters = [];
+            
+            // Randomly chooses a choice from the word array computerChoices.
+            computerWord = computerChoice[Math.floor(Math.random() * computerChoice.length)];
+            console.log("start: " + computerWord);
+
+            // Create a new empty array, with num of items in array matching num of letters in computer selected word.
+            wordToGuess = new Array(computerWord.length);
+            console.log(wordToGuess);
+
+            // Set initial display array for the word to be all empty '_' spaces.
+            for (var i = 0; i < wordToGuess.length; i++) {
+                wordToGuess[i] = "_"
+            }
+            console.log(wordToGuess);
+            // Create display html text for display of blank word at start.
+            var blankLinesHtml = "<h2>"
+            for (var w = 0; w < wordToGuess.length; w++) {
+                blankLinesHtml = blankLinesHtml + wordToGuess[w] + " ";
+            }
+
+            
+        }   
+
 };
