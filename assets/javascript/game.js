@@ -94,14 +94,17 @@ for (var i = 0; i < wordToGuess.length; i++) {
 // console.log(wordToGuess);
 
 // Create display html text for display of blank word at start.
-var blankLinesHtml = "<h2>"
+var blankLinesHtml = "<h1>"
 for (var w = 0; w < wordToGuess.length; w++) {
     blankLinesHtml = blankLinesHtml + wordToGuess[w] + " ";
 }
+
 var topHtml =
+"<div class='row'>" +
+"<div class='col-sm-5 offset-sm-1'>" +
 "<h2>NFL TEAMS Word Guess Game</h2>" +
 "<h2>Press any letter to get started!</h2>";
-var openingHtml = blankLinesHtml + "</h2>";   
+var openingHtml = blankLinesHtml + "</h1>";   
 // Set the inner HTML contents of the #game div to our html string
 document.querySelector("#game").innerHTML = topHtml + openingHtml;
 
@@ -240,12 +243,14 @@ document.onkeyup = function(event) {
             "<h1>" + pickResult + "</h1>" +
             "<h2>You chose: " + pickedLetters + "</h2>" +
             "<h2>Guesses remaining: " + guessesRemaining + "</h2>" +
+            "</div>" +
+            "<div class='col-sm-5'>" +
             "<h2>wins: " + wins + "</h2>" +
             "<h2>losses: " + losses + "</h2>"   
         var endMessage =
             "<h1>" + finalMessage + "</h1>"
         var endImage =
-            "<h1>" + finalImage + "</h1>"
+            "<h1>" + finalImage + "</h1></div></div>"
         // Set the inner HTML contents of the #game div to our html string
         document.querySelector("#game").innerHTML = topHtml + linesHtml + mainHtml + endMessage + endImage;
 
@@ -293,6 +298,8 @@ document.onkeyup = function(event) {
                 "<h1>" + pickResult + "</h1>" +
                 "<h2>You chose: " + pickedLetters + "</h2>" +
                 "<h2>Guesses remaining: " + guessesRemaining + "</h2>" +
+                "</div>" +
+                "<div class='col-sm-5'>" +
                 "<h2>wins: " + wins + "</h2>" +
                 "<h2>losses: " + losses + "</h2>"   
             var endMessage =

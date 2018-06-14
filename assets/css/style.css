@@ -1,0 +1,16 @@
+
+body {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    background: url("../images/football-field-background.jpg");
+    text-align: center;
+  }
+
+h1 {
+	font-size:400%;  
+    }
+h2 {
+	font-size:305%; 
+    }
+h3 {
+    font-size:200%;
+    }
