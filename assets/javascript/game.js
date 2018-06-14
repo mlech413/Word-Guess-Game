@@ -10,6 +10,7 @@ var computerWord = "";
 var finalMessage = "";
 var gameOver = false;
 var p = 0;
+var alreadyPicked = false;
 var pickedLetters = [];
 var alphabet = [
      "A" 
@@ -80,6 +81,7 @@ console.log("start: " + computerWord);
 
 computerWord = computerWord.toUpperCase();
 
+
 // Create a new empty array, with num of items in array matching num of letters in computer selected word.
 var wordToGuess = new Array(computerWord.length);
 console.log(wordToGuess);
@@ -135,8 +137,7 @@ document.onkeyup = function(event) {
     // Only proceed if a valid letter is chosen.
     if (validLetter) {
 
-        // Match the userGuess letter to each letter of the computerWord.
-        var alreadyPicked = false;
+        // Match the userGuess letter to each letter of computerWord.
         for (var i = 0; i < computerWord.length; i++) {
             // console.log(computerWord.charAt(i));
             // If correct guess, the userGuess matches one of the letters in the computer's word, so store the location
@@ -160,15 +161,19 @@ document.onkeyup = function(event) {
 
             for (var z = 0; z < pickedLetters.length; z++) {
                 var compareLetter = pickedLetters[z].charAt(1);
+                console.log("DUPLICATE CHECKER LOOP");
+                console.log("alreadyPicked: " + alreadyPicked);
+                console.log("pickedLetters[z]: " + pickedLetters[z]);
+                console.log("compareLetter: " + compareLetter);
+                console.log("userGuess: " + userGuess);
                 if (compareLetter == userGuess) {
-                    alreadyPick = true;
+                    alreadyPicked = true;
+                    console.log("compareLetter == userGuess");
+                    console.log("alreadyPicked: " + alreadyPicked);
                 }
             }
         }   
-        console.log("alreadyPicked: " + alreadyPicked);
-        console.log("pickedLetters[z]: " + pickedLetters[z]);
-        console.log("compareLetter: " + compareLetter);
-        console.log("userGuess: " + userGuess);
+
         if (alreadyPicked) {
             pickResult = "You already guessed that letter!"
             console.log("wordToGuess: " + wordToGuess);
@@ -245,6 +250,8 @@ document.onkeyup = function(event) {
 
         }
 
+        alreadyPicked = false;
+
         if (gameOver) {
             computerPickMade = 'n';
             validLetter = false;
@@ -275,6 +282,25 @@ document.onkeyup = function(event) {
                 blankLinesHtml = blankLinesHtml + wordToGuess[w] + " ";
             }
 
+            var linesHtml = "<h2>"
+            for (var w = 0; w < wordToGuess.length; w++) {
+                linesHtml = linesHtml + wordToGuess[w] + " ";
+            }
+                linesHtml + "</h2>";
+            var topHtml =
+                "<h2>Word Guess Game</h2>" +
+                "<h2>Press any letter to get started!</h2>";
+            var mainHtml =
+                "<h1>" + pickResult + "</h1>" +
+                "<h2>You chose: " + pickedLetters + "</h2>" +
+                "<h2>Guesses remaining: " + guessesRemaining + "</h2>" +
+                "<h2>wins: " + wins + "</h2>" +
+                "<h2>losses: " + losses + "</h2>"   
+            var endMessage =
+                "<h1>" + finalMessage + "</h1>"
+            // Set the inner HTML contents of the #game div to our html string
+            document.querySelector("#game").innerHTML = topHtml + linesHtml + mainHtml + endMessage;
+    
             
         }   
 
