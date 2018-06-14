@@ -12,16 +12,73 @@ var gameOver = false;
 var p = 0;
 var pickedLetters = [];
 var alphabet = [
-    "a" ,"b" ,"c" ,"d" ,"e" ,"f" ,"g" ,"h" ,"i" ,"j" ,"k" ,"l" ,"m" ,"n" ,"o" ,"p" ,"q" ,"r" ,"s" ,"t" ,"u" ,"v" ,"w" ,"x", "y", "z" 
+     "A" 
+    ,"B" 
+    ,"C" 
+    ,"D" 
+    ,"E" 
+    ,"F" 
+    ,"G" 
+    ,"H" 
+    ,"I" 
+    ,"J" 
+    ,"K" 
+    ,"L" 
+    ,"M" 
+    ,"N" 
+    ,"O" 
+    ,"P" 
+    ,"Q" 
+    ,"R" 
+    ,"S" 
+    ,"T" 
+    ,"U" 
+    ,"V" 
+    ,"W" 
+    ,"X"
+    ,"Y"
+    ,"Z" 
     ]
 var computerChoice = [
-      "apple"
-    , "pear"
+,"Cardinals"
+,"Falcons"
+,"Ravens"
+,"Bills"
+,"Panthers"
+,"Bears"
+,"Bengals"
+,"Browns"
+,"Cowboys"
+,"Broncos"
+,"Lions"
+,"Packers"
+,"Texans"
+,"Colts"
+,"Jaguars"
+,"Chiefs"
+,"Dolphins"
+,"Vikings"
+,"Patriots"
+,"Saints"
+,"Giants"
+,"Jets"
+,"Raiders"
+,"Eagles"
+,"Steelers"
+,"Rams"
+,"Chargers"
+// ,"49ers"
+,"Seahawks"
+,"Buccaneers"
+,"Titans"
+,"Redskins"
     ];
 
 // Randomly chooses a choice from the word array computerChoices.
 computerWord = computerChoice[Math.floor(Math.random() * computerChoice.length)];
 console.log("start: " + computerWord);
+
+computerWord = computerWord.toUpperCase();
 
 // Create a new empty array, with num of items in array matching num of letters in computer selected word.
 var wordToGuess = new Array(computerWord.length);
@@ -39,7 +96,7 @@ for (var w = 0; w < wordToGuess.length; w++) {
     blankLinesHtml = blankLinesHtml + wordToGuess[w] + " ";
 }
 var topHtml =
-"<h2>Word Guess Game</h2>" +
+"<h2>NFL TEAMS Word Guess Game</h2>" +
 "<h2>Press any letter to get started!</h2>";
 var openingHtml = blankLinesHtml + "</h2>";   
 // Set the inner HTML contents of the #game div to our html string
@@ -63,7 +120,8 @@ document.onkeyup = function(event) {
     //     computerPickMade = "y";
     // }
     console.log(computerWord);
-
+    var userGuess = userGuess.toUpperCase();
+    console.log("userGuess: " + userGuess);
 
 
     // Check the alphabet array to see if a valid letter was chosen.
@@ -97,10 +155,22 @@ document.onkeyup = function(event) {
                 console.log("wordToGuess: " + wordToGuess);
             }
         }
-        console.log("alreadyPicked: " + alreadyPicked);
         
+        if (pickedLetters.length > 0) {
+
+            for (var z = 0; z < pickedLetters.length; z++) {
+                var compareLetter = pickedLetters[z].charAt(1);
+                if (compareLetter == userGuess) {
+                    alreadyPick = true;
+                }
+            }
+        }   
+        console.log("alreadyPicked: " + alreadyPicked);
+        console.log("pickedLetters[z]: " + pickedLetters[z]);
+        console.log("compareLetter: " + compareLetter);
+        console.log("userGuess: " + userGuess);
         if (alreadyPicked) {
-            pickResult = "You already got that one!"
+            pickResult = "You already guessed that letter!"
             console.log("wordToGuess: " + wordToGuess);
         }
         else if (currentPickCorrect) {
@@ -136,7 +206,7 @@ document.onkeyup = function(event) {
             console.log(wordToGuess);
         }
         else if (guessesRemaining <= 0) {
-            finalMessage = "You Lose!";
+            finalMessage = computerWord + ": You Lose!";
             losses++;
             gameOver = true;
             // Reset initial display array for the word to be all empty '_' spaces.
@@ -163,6 +233,7 @@ document.onkeyup = function(event) {
             "<h2>Word Guess Game</h2>" +
             "<h2>Press any letter to get started!</h2>";
         var mainHtml =
+            "<h1>" + pickResult + "</h1>" +
             "<h2>You chose: " + pickedLetters + "</h2>" +
             "<h2>Guesses remaining: " + guessesRemaining + "</h2>" +
             "<h2>wins: " + wins + "</h2>" +
