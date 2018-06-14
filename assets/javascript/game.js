@@ -93,18 +93,22 @@ for (var i = 0; i < wordToGuess.length; i++) {
 }
 // console.log(wordToGuess);
 
+
+
+var topHtml =
+"<div class='row'>" +
+    "<div class='col-sm-6 offset-sm-3'>" +
+        "<br><br><h2>NFL TEAMS Word Guess Game</h2>" +
+        "<h2>Press any letter to get started!</h2>";
+  
 // Create display html text for display of blank word at start.
 var blankLinesHtml = "<h1>"
 for (var w = 0; w < wordToGuess.length; w++) {
     blankLinesHtml = blankLinesHtml + wordToGuess[w] + " ";
 }
+var openingHtml = blankLinesHtml + "</h1></div></div>"; 
 
-var topHtml =
-"<div class='row'>" +
-"<div class='col-sm-5 offset-sm-1'>" +
-"<h2>NFL TEAMS Word Guess Game</h2>" +
-"<h2>Press any letter to get started!</h2>";
-var openingHtml = blankLinesHtml + "</h1>";   
+
 // Set the inner HTML contents of the #game div to our html string
 document.querySelector("#game").innerHTML = topHtml + openingHtml;
 
@@ -177,11 +181,11 @@ document.onkeyup = function(event) {
 
         console.log("currentPickCorrect: " + currentPickCorrect);
         if (alreadyPicked) {
-            pickResult = "You already guessed that letter!"
+            pickResult = "You already guessed that!"
             // console.log("wordToGuess: " + wordToGuess);
         }
         else if (currentPickCorrect) {
-            pickResult = "Correct!";
+            pickResult = "CORRECT!";
             for (var d = 0; d < computerWord.length; d++) {
                 if (userGuess == computerWord.charAt(d)) 
                 correctGuesses++;
@@ -189,7 +193,7 @@ document.onkeyup = function(event) {
             }
         }
         else {
-            pickResult = "Incorrect!";
+            pickResult = "WRONG!";
             guessesRemaining--;
             
             // console.log("p: " + p);
@@ -203,8 +207,8 @@ document.onkeyup = function(event) {
         }
 
         if (correctGuesses >= computerWord.length) {
-            finalMessage = computerWord + ": You win!!!!!";
-            finalImage = "<img src='assets/images/" + computerWord + ".jpg'>";
+            finalMessage = computerWord + ": YOU WIN!!!!!";
+            finalImage = "<img id='teamPic' src='assets/images/" + computerWord + ".jpg'>";
             wins++;
             gameOver = true;
             // Reset initial display array for the word to be all empty '_' spaces.
@@ -214,8 +218,8 @@ document.onkeyup = function(event) {
             // console.log(wordToGuess);
         }
         else if (guessesRemaining <= 0) {
-            finalMessage = computerWord + ": You Lose!";
-            finalImage = "<img src='assets/images/" + computerWord + ".jpg'>";
+            finalMessage = computerWord + ": YOU LOSE!";
+            finalImage = "<img id='teamPic' src='assets/images/" + computerWord + ".jpg'>";
             losses++;
             gameOver = true;
             // Reset initial display array for the word to be all empty '_' spaces.
@@ -233,26 +237,32 @@ document.onkeyup = function(event) {
         // console.log("Losses: " + losses);
 
         
-        var linesHtml = "<h2>"
+        var linesHtml = "<h1>"
         for (var w = 0; w < wordToGuess.length; w++) {
             linesHtml = linesHtml + wordToGuess[w] + " ";
         }
-            linesHtml + "</h2>";
+            linesHtml + "</h1></div>";
 
-        var mainHtml =
-            "<h1>" + pickResult + "</h1>" +
-            "<h2>You chose: " + pickedLetters + "</h2>" +
-            "<h2>Guesses remaining: " + guessesRemaining + "</h2>" +
-            "</div>" +
-            "<div class='col-sm-5'>" +
-            "<h2>wins: " + wins + "</h2>" +
-            "<h2>losses: " + losses + "</h2>"   
-        var endMessage =
-            "<h1>" + finalMessage + "</h1>"
-        var endImage =
-            "<h1>" + finalImage + "</h1></div></div>"
+        var mainHtml =            
+            "<div class='row'>" +
+                "<div class='col-sm-2 offset-sm-1'>" +
+                    finalImage + 
+                "</div>" +
+                "<div class='col-sm-6'>" +
+                    "<br><h1>" + pickResult + "</h1>" +
+                    "<h3>You picked:</h3><h3>" + pickedLetters + "</h3>" +
+                    "<br><h2>Guesses remaining: " + guessesRemaining + "</h2>" +
+                    "<h2>Wins: " + wins + "</h2>" +
+                    "<h2>Losses: " + losses + "</h2>" +
+                    "<h1>" + finalMessage + "</h1>" +
+                "</div>" +
+                "<div class='col-sm-2'>" +
+                    finalImage + 
+                "</div>" +
+            "</div>"
         // Set the inner HTML contents of the #game div to our html string
-        document.querySelector("#game").innerHTML = topHtml + linesHtml + mainHtml + endMessage + endImage;
+        document.querySelector("#game").innerHTML = topHtml + linesHtml + mainHtml;
+
 
         }
 
@@ -294,20 +304,25 @@ document.onkeyup = function(event) {
             }
                 linesHtml + "</h2>";
 
-            var mainHtml =
-                "<h1>" + pickResult + "</h1>" +
-                "<h2>You chose: " + pickedLetters + "</h2>" +
-                "<h2>Guesses remaining: " + guessesRemaining + "</h2>" +
+            var mainHtml =            
+            "<div class='row'>" +
+                "<div class='col-sm-2 offset-sm-1'>" +
+                    finalImage + 
                 "</div>" +
-                "<div class='col-sm-5'>" +
-                "<h2>wins: " + wins + "</h2>" +
-                "<h2>losses: " + losses + "</h2>"   
-            var endMessage =
-                "<h1>" + finalMessage + "</h1>"
-            var endImage =
-                "<h1>" + finalImage + "</h1>"
+                "<div class='col-sm-6'>" +
+                    "<br><h1>" + pickResult + "</h1>" +
+                    "<h3>You picked:</h3><h3>" + pickedLetters + "</h3>" +
+                    "<br><h2>Guesses remaining: " + guessesRemaining + "</h2>" +
+                    "<h2>Wins: " + wins + "</h2>" +
+                    "<h2>Losses: " + losses + "</h2>" +
+                    "<h1>" + finalMessage + "</h1>" +
+                "</div>" +
+                "<div class='col-sm-2'>" +
+                    finalImage + 
+                "</div>" +
+            "</div>"
             // Set the inner HTML contents of the #game div to our html string
-            document.querySelector("#game").innerHTML = topHtml + linesHtml + mainHtml + endMessage + endImage;
+            document.querySelector("#game").innerHTML = topHtml + linesHtml + mainHtml;
     
             
         }   
