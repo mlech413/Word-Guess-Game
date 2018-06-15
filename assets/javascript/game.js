@@ -1,5 +1,4 @@
 
-var computerPickMade = 'n';
 var validLetter = false;
 var wins = 0;
 var losses = 0;
@@ -115,7 +114,7 @@ document.onkeyup = function(event) {
     // --Reset some indicators.
     validLetter = false;
     currentPickCorrect = false;
-    // --Set the computer-picked word and anything entered by the user to all uppercase.
+    // --Set the computer-generated word and anything entered by the user to all uppercase.
     computerWord = computerWord.toUpperCase();
     console.log("computerWord: " + computerWord);
     userGuess = userGuess.toUpperCase();
@@ -286,7 +285,6 @@ document.onkeyup = function(event) {
 
         // --Reset some more indicators and write out the next word and screen for the next game.
         if (gameOver) {
-            computerPickMade = 'n';
             validLetter = false;
             correctGuesses = 0;
             currentPickCorrect = false;
