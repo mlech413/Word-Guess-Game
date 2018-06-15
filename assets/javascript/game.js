@@ -5,7 +5,7 @@ var losses = 0;
 var correctGuesses = 0;
 var currentPickCorrect = false;
 var guessesRemaining = 12;
-var computerWord = "";
+var computerWord = "";  
 var finalMessage = "";
 var finalImage = "";
 var gameOver = false;
@@ -98,11 +98,17 @@ var topHtml =
   
 // --Create display html text for display of the blank word at start.
 var blankLinesHtml = "<h1>"
+// --Loop to build the blank '_' spaces for the length of the computer-picked word.
 for (var w = 0; w < wordToGuess.length; w++) {
     blankLinesHtml = blankLinesHtml + wordToGuess[w] + " ";
 }
-var openingHtml = blankLinesHtml + "</h1></div></div>"; 
-
+var openingHtml = blankLinesHtml + "</h1></h4>CURRENT WORD</h4></div></div>" +
+"<div class='row'>" +
+    "<div class='col-sm-2 offset-sm-5'>" +
+       "<img id='teamPic' src='assets/images/NFL.png'>" +
+    "</div>" +
+"</div>";
+finalImage = "<img id='teamPic' src='assets/images/NFL.png'>";
 // --Print to the screen the first lines and blank word.
 document.querySelector("#game").innerHTML = topHtml + openingHtml;
 
@@ -111,15 +117,16 @@ document.onkeyup = function(event) {
 
     // --Determines which key was pressed.
     var userGuess = event.key;
+    
     // --Reset some indicators.
     validLetter = false;
     currentPickCorrect = false;
+
     // --Set the computer-generated word and anything entered by the user to all uppercase.
     computerWord = computerWord.toUpperCase();
     console.log("computerWord: " + computerWord);
     userGuess = userGuess.toUpperCase();
     console.log("userGuess: " + userGuess);
-
 
     // --Check the alphabet array to see if a valid letter was chosen.
     for (var v = 0; v < alphabet.length; v++) {
@@ -274,6 +281,7 @@ document.onkeyup = function(event) {
                     finalImage + 
                 "</div>" +
             "</div>"
+            
 
         document.querySelector("#game").innerHTML = topHtml + linesHtml + mainHtml;
 
@@ -336,9 +344,9 @@ document.onkeyup = function(event) {
                     finalImage + 
                 "</div>" +
             "</div>"
-
+            
             document.querySelector("#game").innerHTML = topHtml + linesHtml + mainHtml;
-    
+            finalMessage = " ";
             
         }   
 
