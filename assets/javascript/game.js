@@ -261,7 +261,7 @@ document.onkeyup = function(event) {
         for (var w = 0; w < wordToGuess.length; w++) {
             linesHtml = linesHtml + wordToGuess[w] + " ";
         }
-            linesHtml + "</h1></div>";
+        linesHtml = linesHtml + "</h1></h4>CURRENT WORD</h4>";
 
         // --The rest of the final displays, showing result and the team pic, plus overall wins and losses.
         var mainHtml =            
@@ -321,11 +321,11 @@ document.onkeyup = function(event) {
                 blankLinesHtml = blankLinesHtml + wordToGuess[w] + " ";
             }
 
-            var linesHtml = "<h2>"
+            var linesHtml = "<h1>"
             for (var w = 0; w < wordToGuess.length; w++) {
                 linesHtml = linesHtml + wordToGuess[w] + " ";
             }
-                linesHtml + "</h2>";
+                linesHtml = linesHtml + "</h1></h4>CURRENT WORD</h4>";
 
             var mainHtml =            
             "<div class='row'>" +
